@@ -1,74 +1,139 @@
-<img width="1041" height="748" alt="image" src="https://github.com/user-attachments/assets/05041e27-3f28-4002-95d2-ae484ea7187c" />
+﻿# HackRF Drone Detector
 
+A Python-based desktop tool for scanning radio frequencies commonly used by consumer drones, visualizing signal behavior, and optionally triggering alerts or experimental jamming through a HackRF One device.
 
-# hackrf-drone-detector
-The app is designed for drone signal detection, spectrum analysis, and experimental jamming using HackRF. False positives are possible, but the program attempts to analyze signals based on many drone-specific parameters.
-## System Requirements
-Operating System: 
-- Linux (Ubuntu/Debian, Fedora, Arch, etc.) with Python 3.8+ support
+The project includes an English version and a Russian version of the interface:
+- [hackrf-drone-detector-V05.py](hackrf-drone-detector-V05.py)
+- [hackrf-drone-detector-V05_rus.py](hackrf-drone-detector-V05_rus.py)
 
-Hardware:
-- HackRF One for transmit/receive operation
-- Antenna
+## What this project does
 
-Software Dependencies:
-- Python3.8+ with pip
-- hackrf-tools
+The application is designed for:
+- monitoring common drone-related frequency bands
+- measuring RSSI strength over time
+- displaying signal trends in a graphical interface
+- detecting suspicious signal patterns using multiple heuristics
+- sending optional email or Telegram alerts
+- experimenting with jamming controls through HackRF tools
 
-Libraries:
-- numpy, matplotlib, tkinter, pygame, requests, smtplib
-___
-## Installing System Dependencies
-### Ubuntu / Debian
+> Note: false positives are possible. The detector uses heuristics and should be treated as an experimental research tool rather than a guaranteed drone identifier.
+
+## Features
+
+- Scan multiple frequencies including 433 MHz, 868 MHz, 915 MHz, 2.4 GHz, and 5.8 GHz
+- Real-time signal visualization with Matplotlib
+- Tkinter-based graphical user interface
+- Adaptive threshold support and signal trend analysis
+- Optional audio alerts and notifications
+- Experimental jamming support via hackrf_transfer
+
+## Hardware and software requirements
+
+### Hardware
+- HackRF One device
+- Compatible antenna
+- A Linux computer with USB access to the HackRF device
+
+### Software
+- Python 3.8 or newer
+- pip
+- hackrf-tools / hackrf_transfer
+- tkinter support for the GUI
+
+## Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Sh7yk/hackrf-drone-detector.git
+cd hackrf-drone-detector
+```
+
+### 2. Create and activate a virtual environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install system dependencies
+
+#### Ubuntu / Debian
+
 ```bash
 sudo apt update
 sudo apt install -y python3 python3-pip python3-tk python3-dev
 sudo apt install -y hackrf libhackrf-dev
 sudo apt install -y portaudio19-dev
 ```
-### Fedora
+
+#### Fedora
+
 ```bash
 sudo dnf install -y python3 python3-pip python3-tkinter python3-devel
 sudo dnf install -y hackrf hackrf-tools
 ```
-### Arch Linux
+
+#### Arch Linux
+
 ```bash
 sudo pacman -S python python-pip tk
 sudo pacman -S hackrf
 ```
-Make sure hackrf_transfer is in the PATH:
-```bash
-which hackrf_transfer
-```
-If the command is not found, check the installation of the hackrf-tools package.
 
-## Download the programm
-```bash
-git clone https://github.com/Sh7yk/hackrf-drone-detector.git
-cd hackrf-drone-detector
-```
-## Create venv(recomended)
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
-## Installing Python dependencies
+### 4. Install Python packages
+
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-## Check that hackrf is detected by the system.
+
+### 5. Verify HackRF is detected
+
 ```bash
 hackrf_info
 ```
 
-## Start detect
+If the command is not found, ensure the HackRF tools are installed and available in your PATH.
+
+## Running the detector
+
+Start the English version:
+
 ```bash
-python3 hackrf-drone-detector.py
+python3 hackrf-drone-detector-V05.py
 ```
 
-<img width="1422" height="777" alt="image" src="https://github.com/user-attachments/assets/03797ae2-744a-40ce-8bba-e8e6fb4481e4" />
+Start the Russian version:
 
+```bash
+python3 hackrf-drone-detector-V05_rus.py
+```
 
-# WARNING
-The jamming feature may be illegal in your country. Use it only in laboratory settings or with appropriate permission. The author is not responsible for any unauthorized use of the program or damage to your harware due to carelessness.
+## Configuration
+
+The program can create a configuration file named config.json for storing settings such as:
+- scan frequencies
+- signal thresholds
+- bandwidth values
+- notification options
+- jamming parameters
+
+## Important safety and legal notice
+
+The jamming feature may be illegal in your country or region. Use it only in controlled lab environments or with explicit authorization where permitted.
+
+This software is provided for educational and research purposes. The author is not responsible for any unauthorized use, interference, or hardware damage caused by misuse.
+
+## Troubleshooting
+
+- If HackRF is not detected, confirm that the device is connected and that hackrf_info works.
+- If the GUI does not start, make sure tkinter is installed.
+- If audio alerts are not available, pygame may be missing; the application can still run without them.
+- If you see many false positives, adjust thresholds and scan settings in the interface or configuration file.
+
+## File overview
+
+- [hackrf-drone-detector-V05.py](hackrf-drone-detector-V05.py) - main English implementation
+- [hackrf-drone-detector-V05_rus.py](hackrf-drone-detector-V05_rus.py) - Russian-language version
+- [requirements.txt](requirements.txt) - Python dependencies
